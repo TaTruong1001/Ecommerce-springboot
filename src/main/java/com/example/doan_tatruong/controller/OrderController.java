@@ -43,7 +43,9 @@ public class OrderController {
         } else {
             model.addAttribute("user", user);
             ShoppingCart shoppingCart = user.getShoppingCart();
-
+            if (shoppingCart == null) {
+                return "redirect:/customer/cart";
+            }
             List<String> insufficientStockMessages = new ArrayList<>();
 
             for (CartItem cartItem : shoppingCart.getCartItems()) {
@@ -52,7 +54,6 @@ public class OrderController {
                 int availableQuantity = product.getCurrentQuantity();
 
                 if (requestedQuantity > availableQuantity) {
-                    // Thêm thông báo lỗi cho sản phẩm không đủ số lượng
                     insufficientStockMessages.add("Insufficient stock for product: " + product.getName());
                 }
             }

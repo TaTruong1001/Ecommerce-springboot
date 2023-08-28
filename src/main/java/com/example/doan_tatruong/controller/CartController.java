@@ -35,7 +35,7 @@ public class CartController {
             User user = userService.findByUsername(username);
             ShoppingCart shoppingCart = user.getShoppingCart();
             if (shoppingCart == null) {
-                model.addAttribute("msg", "no item in your cart");
+                model.addAttribute("msg", "No item in your cart!");
                 model.addAttribute("subTotal",0);
             }else{
                 double subTotal = shoppingCart.getTotalPrice();

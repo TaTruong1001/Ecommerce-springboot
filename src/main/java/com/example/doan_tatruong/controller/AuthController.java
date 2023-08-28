@@ -75,7 +75,7 @@ public class AuthController {
                 User savedUser = userService.save(userDto);
                 String siteURL = Utility.getSiteURL(request);
                 userService.sendVerificationEmail(savedUser, siteURL);
-                model.addAttribute("success", "Register successfully!");
+                model.addAttribute("success", "Please enable email for logging in!");
                 model.addAttribute("userDto", userDto);
             } else {
                 // Xử lý trường hợp mật khẩu không khớp
