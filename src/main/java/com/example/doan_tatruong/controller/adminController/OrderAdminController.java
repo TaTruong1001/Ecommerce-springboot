@@ -44,7 +44,7 @@ public class OrderAdminController {
         if (principal == null) {
             return "redirect:/login";
         } else {
-            orderService.cancelOrder(id);
+            orderService.deleteOrder(id);
             return "redirect:/admin/orders";
         }
     }

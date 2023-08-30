@@ -19,4 +19,5 @@ public interface OrderService {
 
     void sendOrderConfirmationEmail(User user);
     Order updatePaymentMethod(Order order);
+    void deleteOrder(Long id);
 }

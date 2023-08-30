@@ -17,6 +17,8 @@ public class PaymentInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_info_id")
     private long id;
+    @ManyToOne
+    private User user;
     private Date paymentDate;
     private String paymentContent;
     private String cartInformation;

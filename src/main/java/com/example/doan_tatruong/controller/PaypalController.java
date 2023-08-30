@@ -33,7 +33,7 @@ public class PaypalController {
     UserService userService;
 
     @PostMapping("/create-payment")
-    @ResponseBody // Để trả về dữ liệu JSON
+    @ResponseBody
     public ResponseEntity<String> createPayment(
             @RequestParam("total") Double total,
             @RequestParam("currency") String currency) {
@@ -65,7 +65,6 @@ public class PaypalController {
 
     @GetMapping("/cancel-payment")
     public String cancelPayment() {
-
         return "checkout";
     }
 
@@ -74,27 +73,21 @@ public class PaypalController {
             Principal principal,
             Model model) {
 
-            // Lưu đơn hàng và gửi email xác nhận
             User user = userService.findByUsername(principal.getName());
             ShoppingCart shoppingCart = user.getShoppingCart();
             Order newOrder = orderService.saveOrder(shoppingCart);
             model.addAttribute("orders", newOrder);
             orderService.sendOrderConfirmationEmail(user);
 
-            // Xác định phương thức thanh toán và cập nhật vào đơn hàng
             if (newOrder.getPaymentMethod().equals("PayPal")) {
                 newOrder.setPaymentMethod("Paid via PayPal");
             } else {
                 newOrder.setPaymentMethod("Cash");
             }
-
-            // Truyền thông tin thanh toán vào model để hiển thị
             model.addAttribute("orderConfirmationMessage", "Your order has been successfully placed. An email confirmation has been sent to your email address.");
         return "order";
     }
 
-
-    // Class đơn giản để trả về URL từ controller cho JavaScript
     private static class PaymentResponse {
         private String approvalUrl;
 
